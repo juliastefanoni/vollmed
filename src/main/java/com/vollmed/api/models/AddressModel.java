@@ -2,6 +2,7 @@ package com.vollmed.api.models;
 
 import com.vollmed.api.dtos.AddressData;
 import com.vollmed.api.dtos.DoctorRegisterData;
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 public class AddressModel {
     private String street;
     private String neighborhood;
+    @Column(name = "zip_code")
     private String zipCode;
     private String number;
     private String complement;
