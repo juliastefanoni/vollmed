@@ -20,6 +20,8 @@ public class DoctorModel {
     private String name;
     private String email;
     private String crm;
+    @Column(name = "cell_phone")
+    private String cellPhone;
 
     @Enumerated(EnumType.STRING)
     private Expertise expertise;
@@ -31,6 +33,7 @@ public class DoctorModel {
         this.name = doctorBody.name();
         this.email = doctorBody.email();
         this.crm = doctorBody.crm();
+        this.cellPhone = doctorBody.cellPhone();
         this.expertise = doctorBody.expertise();
         this.address = new AddressModel(doctorBody.address());
     }
