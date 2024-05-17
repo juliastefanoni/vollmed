@@ -23,6 +23,7 @@ public class DoctorModel {
     private String crm;
     @Column(name = "cell_phone")
     private String cellPhone;
+    private Boolean active;
 
     @Enumerated(EnumType.STRING)
     private Expertise expertise;
@@ -35,6 +36,7 @@ public class DoctorModel {
         this.email = doctorBody.email();
         this.crm = doctorBody.crm();
         this.cellPhone = doctorBody.cellPhone();
+        this.active = true;
         this.expertise = doctorBody.expertise();
         this.address = new AddressModel(doctorBody.address());
     }
@@ -51,5 +53,9 @@ public class DoctorModel {
         if (doctorBody.address() !=null ) {
             this.address.update(doctorBody.address());
         }
+    }
+
+    public void delete() {
+        this.active = false;
     }
 }
