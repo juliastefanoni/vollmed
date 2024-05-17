@@ -30,7 +30,7 @@ public class DoctorController {
 
     @GetMapping
     public Page<DoctorsListData> list(@PageableDefault(size = 10, sort = {"name"}) Pageable page) {
-        return repository.findAll(page).map(DoctorsListData::new);
+        return repository.findAllByActiveTrue(page).map(DoctorsListData::new);
     }
 
     @PutMapping
