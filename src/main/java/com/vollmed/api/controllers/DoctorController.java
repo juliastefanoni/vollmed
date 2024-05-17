@@ -1,6 +1,7 @@
 package com.vollmed.api.controllers;
 
 import com.vollmed.api.dtos.DoctorRegisterData;
+import com.vollmed.api.dtos.DoctorUpdateData;
 import com.vollmed.api.dtos.DoctorsListData;
 import com.vollmed.api.models.DoctorModel;
 import com.vollmed.api.repositories.DoctorRepository;
@@ -30,6 +31,13 @@ public class DoctorController {
     @GetMapping
     public Page<DoctorsListData> list(@PageableDefault(size = 10, sort = {"name"}) Pageable page) {
         return repository.findAll(page).map(DoctorsListData::new);
+    }
+
+    @PutMapping
+    @Transactional
+    public void update(@RequestBody @Valid DoctorUpdateData doctorBody) {
+        DoctorModel doctor = repository.getReferenceById(doctorBody.id());
+        doctor.update(doctorBody);
     }
 
 }

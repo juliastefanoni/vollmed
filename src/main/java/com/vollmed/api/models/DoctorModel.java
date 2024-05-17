@@ -1,6 +1,7 @@
 package com.vollmed.api.models;
 
 import com.vollmed.api.dtos.DoctorRegisterData;
+import com.vollmed.api.dtos.DoctorUpdateData;
 import com.vollmed.api.enums.Expertise;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,5 +37,19 @@ public class DoctorModel {
         this.cellPhone = doctorBody.cellPhone();
         this.expertise = doctorBody.expertise();
         this.address = new AddressModel(doctorBody.address());
+    }
+
+    public void update(DoctorUpdateData doctorBody) {
+        if(doctorBody.name() != null) {
+            this.name = doctorBody.name();
+        }
+
+        if(doctorBody.cellPhone() != null) {
+            this.cellPhone = doctorBody.cellPhone();
+        }
+
+        if (doctorBody.address() !=null ) {
+            this.address.update(doctorBody.address());
+        }
     }
 }
