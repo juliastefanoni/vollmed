@@ -1,6 +1,7 @@
 package com.vollmed.api.controllers;
 
 import com.vollmed.api.dtos.AuthenticationData;
+import com.vollmed.api.dtos.TokenDataJWT;
 import com.vollmed.api.models.UserModel;
 import com.vollmed.api.security.TokenService;
 import jakarta.validation.Valid;
@@ -26,9 +27,11 @@ public class AuthenticationController {
 
     @PostMapping
     public ResponseEntity doLogin(@RequestBody @Valid AuthenticationData data) {
-        Authentication token = new UsernamePasswordAuthenticationToken(data.login(), data.password());
-        Authentication authentication = authenticationManager.authenticate(token);
+        Authentication authenticationToken = new UsernamePasswordAuthenticationToken(data.login(), data.password());
+        Authentication authentication = authenticationManager.authenticate(authenticationToken);
 
-        return ResponseEntity.ok(tokenService.generateToken((UserModel) authentication.getPrincipal()));
+        var tokenJWT = tokenService.generateToken((UserModel) authentication.getPrincipal());
+
+        return ResponseEntity.ok(new TokenDataJWT(tokenJWT));
     }
 }
